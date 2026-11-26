@@ -98,7 +98,7 @@ def azimuth(positions, axis=-1):
 
     Examples:
 
-        >>> azimuth([0, 1, 0]).round(0).astype(int)
+        >>> int(azimuth([0, 1, 0]).round(0))
         0
 
         >>> azimuth([[1, 0, 0], [0, 1, 0]]).round(0).astype(int)

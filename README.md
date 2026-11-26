@@ -26,7 +26,7 @@ $ pip install ear
 
 ### Python versions
 
-*EAR* supports Python 2.7 and Python >=3.6
+*EAR* supports Python >=3.9
 and runs on all major platforms (Linux, Mac OSX, Windows).
 
 ### Installation of extra packages

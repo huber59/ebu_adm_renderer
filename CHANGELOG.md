@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Runs with current dependencies (numpy 2, scipy 1.18, ruamel.yaml 0.19, pytest 9) on Python 3.9 to 3.13.
+- Dropped Python 2, `six`, `enum34` and `pkg_resources`; version-dependent calls live in `ear/compatibility.py`.
+
 ## [2.0.0] - 2019-05-22
 
 Changes for ITU ADM renderer reference code.

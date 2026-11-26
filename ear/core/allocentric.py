@@ -3,12 +3,11 @@ from .objectbased.conversion import point_polar_to_cart
 
 
 def _load_allo_positions():
-    import pkg_resources
-    from ruamel import yaml
+    from ..compatibility import load_yaml, open_resource
 
     fname = "data/allo_positions.yaml"
-    with pkg_resources.resource_stream(__name__, fname) as layouts_file:
-        return yaml.safe_load(layouts_file)
+    with open_resource(__name__, fname) as layouts_file:
+        return load_yaml(layouts_file)
 
 
 _allo_positions = _load_allo_positions()

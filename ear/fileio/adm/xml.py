@@ -1,4 +1,3 @@
-import sys
 import warnings
 from fractions import Fraction
 
@@ -6,7 +5,6 @@ from attr import attrs, attrib, Factory
 import lxml.etree
 from lxml.etree import QName
 from lxml.builder import ElementMaker
-from six import viewkeys, iteritems, reraise
 
 from .adm import ADM
 from .elements import (
@@ -302,23 +300,23 @@ class ElementParser(object):
         def null_handler(kwargs, x):
             pass
 
-        for key, value in iteritems(element.attrib):
+        for key, value in element.attrib.items():
             try:
                 self.attr_handlers.get(key, null_handler)(kwargs, value)
             except ParseError: raise
-            except Exception as e: reraise(ParseError, ParseError(e, element, key), sys.exc_info()[2])
+            except Exception as e: raise ParseError(e, element, key) from e
 
         for child in element.getchildren():
             try:
                 self.element_handlers.get(child.tag, null_handler)(kwargs, child)
             except ParseError: raise
-            except Exception as e: reraise(ParseError, ParseError(e, child), sys.exc_info()[2])
+            except Exception as e: raise ParseError(e, child) from e
 
         if self.text_handler is not None:
             self.text_handler(kwargs, text(element))
 
-        if not (viewkeys(kwargs) >= self.required_args):
-            missing_args = self.required_args - viewkeys(kwargs)
+        if not (kwargs.keys() >= self.required_args):
+            missing_args = self.required_args - kwargs.keys()
             missing_items = (self.arg_to_name[arg_name] for arg_name in missing_args)
             err = ValueError("missing items: {missing}".format(missing=', '.join(missing_items)))
             raise ParseError(err, element)
@@ -329,7 +327,7 @@ class ElementParser(object):
         try:
             return self.cls(**kwargs)
         except ParseError: raise
-        except Exception as e: reraise(ParseError, ParseError(e, element), sys.exc_info()[2])
+        except Exception as e: raise ParseError(e, element) from e
 
     def to_xml(self, parent, obj):
         element = parent.makeelement(QName(default_ns, self.adm_name))

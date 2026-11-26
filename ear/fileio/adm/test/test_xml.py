@@ -18,8 +18,8 @@ class BaseADM(object):
     """Base ADM to start tests from, with utilities for interacting with it."""
 
     def __init__(self, fname):
-        import pkg_resources
-        with pkg_resources.resource_stream(__name__, fname) as xml_file:
+        from ....compatibility import open_resource
+        with open_resource(__name__, fname) as xml_file:
             self.xml = lxml.etree.parse(xml_file)
 
         self.adm = parse_string(lxml.etree.tostring(self.xml))

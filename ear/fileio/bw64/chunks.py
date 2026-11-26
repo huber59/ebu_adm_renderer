@@ -3,7 +3,6 @@ from attr.validators import instance_of, optional
 import struct
 from collections import namedtuple
 from enum import IntEnum
-from six import string_types
 
 ChunkPosition = namedtuple('ChunkPosition', ['chunkId', 'size', 'data', 'end'])
 
@@ -364,9 +363,9 @@ class ChnaChunk(object):
 class AudioID(object):
     """Class representation of a chna audioIDs list entry."""
     trackIndex = attrib(validator=instance_of(int))
-    audioTrackUID = attrib(validator=instance_of(string_types))
-    audioTrackFormatIDRef = attrib(validator=instance_of(string_types))
-    audioPackFormatIDRef = attrib(validator=optional(instance_of(string_types)))
+    audioTrackUID = attrib(validator=instance_of(str))
+    audioTrackFormatIDRef = attrib(validator=instance_of(str))
+    audioPackFormatIDRef = attrib(validator=optional(instance_of(str)))
 
     def asByteArray(self):
         pack_format_bin = (self.audioPackFormatIDRef.encode('utf-8')
