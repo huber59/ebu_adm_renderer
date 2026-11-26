@@ -14,28 +14,26 @@ setup(
     long_description=open('README.md').read() + '\n' + open('CHANGELOG.md').read(),
     long_description_content_type='text/markdown',
 
+    python_requires='>=3.9',
     install_requires=[
-        'numpy~=1.14',
-        'scipy~=1.0',
-        'attrs~=17.4',
-        'ruamel.yaml~=0.15',
-        'lxml~=4.4',
-        'enum34~=1.1',
-        'six~=1.11',
-        'multipledispatch~=0.5',
+        'numpy>=1.22',
+        'scipy>=1.8',
+        'attrs>=21.3',
+        'ruamel.yaml>=0.17.22',
+        'lxml>=4.9',
+        'multipledispatch>=0.6',
     ],
 
     extras_require={
         'test': [
-            'pytest~=3.5',
-            'pytest-datafiles~=2.0',
-            'pytest-cov~=2.5',
-            'soundfile~=0.10',
+            'pytest>=7',
+            'pytest-datafiles>=2.0',
+            'pytest-cov>=4',
+            'soundfile>=0.12',
         ],
         'dev': [
-            'flake8~=3.5',
-            'flake8-print~=3.1',
-            'flake8-string-format~=0.2',
+            'flake8>=6',
+            'flake8-print>=5',
         ],
     },
 

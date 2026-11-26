@@ -1,7 +1,6 @@
 from itertools import chain
 import warnings
 from collections import OrderedDict
-from six import iteritems
 from .exceptions import AdmIDError, AdmIDWarning
 
 
@@ -43,7 +42,7 @@ class ADM(object):
             else:
                 by_id.setdefault(obj.id.upper(), []).append(obj)
 
-        for id, objects in iteritems(by_id):
+        for id, objects in by_id.items():
             common = [obj for obj in objects if obj.is_common_definition]
             non_common = [obj for obj in objects if not obj.is_common_definition]
 

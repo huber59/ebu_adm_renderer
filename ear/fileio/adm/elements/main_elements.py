@@ -2,7 +2,6 @@ from attr import attrs, attrib, Factory, validate
 from attr.validators import instance_of, optional
 from enum import Enum
 from fractions import Fraction
-from six import string_types
 
 from ..exceptions import AdmError
 from ....common import CartesianScreen, PolarScreen, default_screen, list_of
@@ -51,7 +50,7 @@ class ADMElement(object):
 
 @attrs(slots=True)
 class AudioProgramme(ADMElement):
-    audioProgrammeName = attrib(default=None, validator=instance_of(string_types))
+    audioProgrammeName = attrib(default=None, validator=instance_of(str))
     audioProgrammeLanguage = attrib(default=None)
     start = attrib(default=None)
     end = attrib(default=None)
@@ -71,7 +70,7 @@ class AudioProgramme(ADMElement):
 
 @attrs(slots=True)
 class AudioContent(ADMElement):
-    audioContentName = attrib(default=None, validator=instance_of(string_types))
+    audioContentName = attrib(default=None, validator=instance_of(str))
     audioContentLanguage = attrib(default=None)
     loudnessMetadata = attrib(default=None)
     dialogue = attrib(default=None)
@@ -86,7 +85,7 @@ class AudioContent(ADMElement):
 
 @attrs(slots=True)
 class AudioObject(ADMElement):
-    audioObjectName = attrib(default=None, validator=instance_of(string_types))
+    audioObjectName = attrib(default=None, validator=instance_of(str))
     start = attrib(validator=optional(instance_of(Fraction)), default=None)
     duration = attrib(validator=optional(instance_of(Fraction)), default=None)
     importance = attrib(default=None, validator=optional(instance_of(int)))
@@ -123,7 +122,7 @@ class AudioObject(ADMElement):
 
 @attrs(slots=True)
 class AudioPackFormat(ADMElement):
-    audioPackFormatName = attrib(default=None, validator=instance_of(string_types))
+    audioPackFormatName = attrib(default=None, validator=instance_of(str))
     type = attrib(default=None, validator=instance_of(TypeDefinition))
     absoluteDistance = attrib(default=None)
     audioChannelFormats = attrib(default=Factory(list), repr=False)
@@ -189,7 +188,7 @@ class Frequency(object):
 
 @attrs(slots=True)
 class AudioChannelFormat(ADMElement):
-    audioChannelFormatName = attrib(default=None, validator=instance_of(string_types))
+    audioChannelFormatName = attrib(default=None, validator=instance_of(str))
     type = attrib(default=None, validator=instance_of(TypeDefinition))
     audioBlockFormats = attrib(default=Factory(list))
     frequency = attrib(default=Factory(Frequency), validator=instance_of(Frequency))
@@ -212,7 +211,7 @@ class AudioChannelFormat(ADMElement):
 
 @attrs(slots=True)
 class AudioStreamFormat(ADMElement):
-    audioStreamFormatName = attrib(default=None, validator=instance_of(string_types))
+    audioStreamFormatName = attrib(default=None, validator=instance_of(str))
 
     format = attrib(default=None, validator=instance_of(FormatDefinition))
 
@@ -249,7 +248,7 @@ class AudioStreamFormat(ADMElement):
 
 @attrs(slots=True)
 class AudioTrackFormat(ADMElement):
-    audioTrackFormatName = attrib(default=None, validator=instance_of(string_types))
+    audioTrackFormatName = attrib(default=None, validator=instance_of(str))
     format = attrib(default=None, validator=instance_of(FormatDefinition))
     audioStreamFormat = attrib(default=None, validator=optional(instance_of(AudioStreamFormat)))
 

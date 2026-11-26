@@ -1,5 +1,6 @@
 from attr import attrs, attrib
-from ruamel import yaml
+from ruamel.yaml.comments import CommentedMap
+from .compatibility import dump_yaml
 from functools import wraps
 import warnings
 
@@ -71,7 +72,7 @@ class OptionsHandler(object):
         return wrapper
 
     def _get_defaults_yaml(self, indent=2, current_indent=0):
-        mapping = yaml.comments.CommentedMap()
+        mapping = CommentedMap()
         for key, option in self.options.items():
             mapping[key] = option._get_default_yaml(indent=indent, current_indent=current_indent + indent)
             mapping.yaml_set_comment_before_after_key(key, option.description, indent=current_indent)
@@ -82,7 +83,7 @@ class OptionsHandler(object):
 def _merge_options_into_defaults(options, defaults):
     for key, option in options.items():
         if key in defaults:
-            if isinstance(defaults[key], yaml.comments.CommentedMap):
+            if isinstance(defaults[key], CommentedMap):
                 _merge_options_into_defaults(option, defaults[key])
             else:
                 defaults[key] = option
@@ -104,9 +105,7 @@ def dump_config_with_comments(root_handler, options={}, indent=4):
 
     _merge_options_into_defaults(options, defaults)
 
-    return yaml.dump(defaults,
-                     Dumper=yaml.RoundTripDumper,
-                     indent=indent)
+    return dump_yaml(defaults, roundtrip=True, indent=indent)
 
 
 def test_merge():

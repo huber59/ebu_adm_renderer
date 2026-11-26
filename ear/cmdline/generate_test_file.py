@@ -1,4 +1,4 @@
-import ruamel.yaml
+from ..compatibility import load_yaml
 import lxml.etree
 from ..core import layout
 from ..fileio.adm.builder import ADMBuilder
@@ -152,7 +152,7 @@ def create_item(builder, item):
 
 def load_test_file_adm(filename):
     with open(filename) as f:
-        yaml = ruamel.yaml.safe_load(f)
+        yaml = load_yaml(f)
 
     builder = ADMBuilder()
 

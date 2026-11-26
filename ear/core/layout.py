@@ -201,7 +201,7 @@ class Layout(object):
             if num_outputs == 0:
                 callback("Channel {name} not mapped to any output.".format(name=channel.name))
             if num_outputs > 1:
-                outputs = list(np.nonzero(column)[0])
+                outputs = [int(i) for i in np.nonzero(column)[0]]
                 callback("Channel {name} mapped to multiple outputs: {outputs}.".format(name=channel.name,
                                                                                         outputs=outputs))
 
@@ -291,7 +291,7 @@ def load_real_layout(fileobj):
     Returns:
         list of Speaker
     """
-    from ruamel import yaml
+    from ..compatibility import load_yaml
 
     def parse_yaml_polar_position(position):
         if set(position.keys()) == set(["az", "el", "r"]):
@@ -344,7 +344,7 @@ def load_real_layout(fileobj):
         else:
             raise Exception("Unknown screen type: {!r}".format(screen_type))
 
-    yaml_info = yaml.safe_load(fileobj)
+    yaml_info = load_yaml(fileobj)
 
     if isinstance(yaml_info, dict):
         yaml_info_dict = yaml_info

@@ -140,9 +140,9 @@ def test_Layout_check_upmix_matrix(layout):
 
 def test_load_layout_info():
     def run_test(yaml_obj, expected, func=load_real_layout):
-        from ruamel import yaml
-        from six import StringIO
-        yaml_str = yaml.dump(yaml_obj)
+        from io import StringIO
+        from ...compatibility import dump_yaml
+        yaml_str = dump_yaml(yaml_obj)
 
         result = func(StringIO(yaml_str))
 
